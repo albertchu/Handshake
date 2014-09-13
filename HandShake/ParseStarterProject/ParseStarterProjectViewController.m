@@ -29,8 +29,13 @@ const int userid = 1;
     myUserRow[@"lat"] = [[NSNumber alloc] initWithFloat: self.locationManager.location.coordinate.latitude];
     myUserRow[@"lon"] = [[NSNumber alloc] initWithFloat: self.locationManager.location.coordinate.longitude];
     myUserRow[@"userid"] = [[NSNumber alloc] initWithInt:userid];
+    myUserRow[@"currentTimeStamp"] = [self timeStamp];
     [myUserRow saveInBackground];
     NSLog(@"Saved your info to database.");
+}
+
+- (NSString *) timeStamp {
+    return [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]];
 }
 
 - (void) enteredBackground{
