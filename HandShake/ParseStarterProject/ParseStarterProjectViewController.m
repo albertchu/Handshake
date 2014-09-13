@@ -20,17 +20,17 @@ const int userid = 1;
     self.locationManager.distanceFilter = kCLDistanceFilterNone;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters; // 100 m
     [self.locationManager startUpdatingLocation];
+    self.myUserRow = [PFObject objectWithClassName:@"UserLocations"];
     [self saveInfoToDB];
 }
 
 - (void) saveInfoToDB {
-    
-    PFObject *myUserRow = [PFObject objectWithClassName:@"UserLocations"];
-    myUserRow[@"lat"] = [[NSNumber alloc] initWithFloat: self.locationManager.location.coordinate.latitude];
-    myUserRow[@"lon"] = [[NSNumber alloc] initWithFloat: self.locationManager.location.coordinate.longitude];
-    myUserRow[@"userid"] = [[NSNumber alloc] initWithInt:userid];
-    myUserRow[@"currentTimeStamp"] = [self timeStamp];
-    [myUserRow saveInBackground];
+    self.myUserRow[@"appIsOpenNow"] = [NSNumber numberWithBool: YES];
+    self.myUserRow[@"lat"] = [[NSNumber alloc] initWithFloat: self.locationManager.location.coordinate.latitude];
+    self.myUserRow[@"lon"] = [[NSNumber alloc] initWithFloat: self.locationManager.location.coordinate.longitude];
+    self.myUserRow[@"userid"] = [[NSNumber alloc] initWithInt:userid];
+    self.myUserRow[@"currentTimeStamp"] = [self timeStamp];
+    [self.myUserRow saveInBackground];
     NSLog(@"Saved your info to database.");
 }
 
@@ -39,43 +39,8 @@ const int userid = 1;
 }
 
 - (void) enteredBackground{
-//    PFQuery *query = [PFQuery queryWithClassName:@"UserLocations"];
-//    [query getObjectInBackgroundWithId:@"7FdiuU5EUG" block:^(PFObject *gameScore, NSError *error) {
-//        // Do something with the returned PFObject in the gameScore variable.
-//        NSLog(@"%@", gameScore);
-//    }];
-    
-//    NSLog(@"1");
-//    PFQuery *query = [PFQuery queryWithClassName:@"UserLocations"];
-//    NSLog(@"2");
-//    [query whereKey:@"userid" equalTo:[[NSNumber alloc] initWithInt:userid]];
-//    NSLog(@"3");
-//    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-//        NSLog(@"4");
-//        if (!error) {
-//            // The find succeeded.
-//            NSLog(@"Successfully retrieved %d scores.", objects.count);
-//            // Do something with the found objects
-//            for (PFObject *object in objects) {
-//                NSLog(@"%@", object.objectId);
-//                [object deleteInBackground];
-//            }
-//        } else {
-//            // Log details of the failure
-//            NSLog(@"Error: %@ %@", error, [error userInfo]);
-//        }
-//    }];
-//    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-//        NSLog(@"4");
-//        if (!object) {
-//            NSLog(@"The getFirstObject request failed.");
-//        } else {
-//            // The find succeeded.
-//            NSLog(@"Successfully retrieved the object.");
-//            [object deleteInBackground];
-//        }
-//    }];
-    
+    self.myUserRow[@"appIsOpenNow"] = [NSNumber numberWithBool: FALSE];
+    [self.myUserRow saveInBackground];    
 }
 
 - (void)didReceiveMemoryWarning {
