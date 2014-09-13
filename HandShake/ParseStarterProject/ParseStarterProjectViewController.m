@@ -6,7 +6,6 @@
 //
 
 #import "ParseStarterProjectViewController.h"
-
 #import <Parse/Parse.h>
 
 @implementation ParseStarterProjectViewController
@@ -25,15 +24,12 @@ const int userid = 1;
 }
 
 - (void) saveInfoToDB {
-
     
-    NSString *loc = [NSString stringWithFormat:@"%f,%f",self.locationManager.location.coordinate.latitude, self.locationManager.location.coordinate.longitude];
-    NSLog(@"location:%@", loc);
-    PFObject *object = [PFObject objectWithClassName:@"UserLocations"];
-    object[@"lat"] = [[NSNumber alloc] initWithDouble:38.898556];
-    object[@"lon"] = [[NSNumber alloc] initWithDouble:-77.037852];
-    object[@"userid"] = [[NSNumber alloc] initWithInt:userid];
-    [object saveInBackground];
+    PFObject *myUserRow = [PFObject objectWithClassName:@"UserLocations"];
+    myUserRow[@"lat"] = [[NSNumber alloc] initWithFloat: self.locationManager.location.coordinate.latitude];
+    myUserRow[@"lon"] = [[NSNumber alloc] initWithFloat: self.locationManager.location.coordinate.longitude];
+    myUserRow[@"userid"] = [[NSNumber alloc] initWithInt:userid];
+    [myUserRow saveInBackground];
     NSLog(@"Saved your info to database.");
 }
 

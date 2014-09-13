@@ -121,6 +121,7 @@
      this method is called instead of applicationWillTerminate: when the user quits.
      */
     [self.viewController enteredBackground];
+    
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
