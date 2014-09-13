@@ -11,7 +11,7 @@
 // #import <ParseFacebookUtils/PFFacebookUtils.h>
 
 #import "ParseStarterProjectAppDelegate.h"
-#import "ParseStarterProjectViewController.h"
+#import "HomeViewController.h"
 
 @implementation ParseStarterProjectAppDelegate
 
@@ -28,7 +28,7 @@
     // ****************************************************************************
     [Parse setApplicationId:@"HvWy7TDYYgXffalZTlqgRaQisUUz6aw699OSXTeR"
                   clientKey:@"snjWt4QwcNR8v461Mx74TGrQtevUEVXNnNUNlSlD"];
-    [PFUser enableAutomaticUser];
+//    [PFUser enableAutomaticUser];
 
     PFACL *defaultACL = [PFACL ACL];
 
@@ -39,8 +39,8 @@
 
     // Override point for customization after application launch.
 
-    self.window.rootViewController = self.viewController;
-    [self.window makeKeyAndVisible];
+//    self.window.rootViewController = self.viewController;
+//    [self.window makeKeyAndVisible];
 
     if (application.applicationState != UIApplicationStateBackground) {
         // Track an app open here if we launch with a push, unless
@@ -120,7 +120,7 @@
      If your application supports background execution,
      this method is called instead of applicationWillTerminate: when the user quits.
      */
-    [self.viewController enteredBackground];
+//    [self.viewController enteredBackground];
     
 }
 
@@ -128,7 +128,7 @@
     /*
      Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
      */
-    [self.viewController saveInfoToDB];
+//    [self.viewController saveInfoToDB];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {

@@ -7,10 +7,10 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
-#import "ParseStarterProjectViewController.h"
+#import "HomeViewController.h"
 #import <Parse/Parse.h>
 
-@interface ParseStarterProjectViewController : UIViewController
+@interface HomeViewController : UIViewController <CLLocationManagerDelegate, PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate>
 -(void) enteredBackground;
 -(void) saveInfoToDB;
 @property (nonatomic,retain) CLLocationManager *locationManager;
