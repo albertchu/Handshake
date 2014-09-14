@@ -44,9 +44,9 @@
     // set name and other string values
     
     
-    NSString *firstName=@"Raj";
-    NSString *lastName=@"Patel";
-    NSString *phoneNo=@"913654985";
+    NSString *firstName=@"Chintav";
+    NSString *lastName=@"Shah";
+    NSString *phoneNo=@"7326758035";
     
     
     CFErrorRef cfError=nil;
