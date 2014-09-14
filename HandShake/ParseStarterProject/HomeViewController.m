@@ -11,7 +11,6 @@
 @implementation HomeViewController
 
 #pragma mark - UIViewController
-//PFUser *user = [PFUser currentUser];
 
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -31,12 +30,13 @@
         
         [self presentViewController:loginViewController animated:YES completion:nil];
     }
+    
+    
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [PFCloud callFunctionInBackground:@"hello"
                        withParameters:@{}
                                 block:^(NSString *result, NSError *error) {
@@ -52,20 +52,30 @@
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest; // best possible accuracy
     [self.locationManager startUpdatingLocation];
     self.myUserRow = [PFObject objectWithClassName:@"UserLocations"];
+    
 }
 
 - (void) saveInfoToDB {
+    PFUser *user = [PFUser currentUser];
+
     self.myUserRow[@"appIsOpenNow"] = [NSNumber numberWithBool: YES];
     
     PFGeoPoint *geoPoint = [PFGeoPoint geoPointWithLatitude:self.locationManager.location.coordinate.latitude
                                                   longitude:self.locationManager.location.coordinate.longitude];
     [self.myUserRow setObject:geoPoint forKey:@"location"];
     //    self.myUserRow[@"userid"] = [[NSNumber alloc] initWithInt:userid];
-    //self.myUserRow[@"user"] = user;
+    self.myUserRow[@"user"] = user;
     self.myUserRow[@"currentTimeStamp"] = [self timeStamp];
     [self.myUserRow saveInBackground];
     NSLog(@"timeStamp %@", self.myUserRow[@"currentTimeStamp"]);
     NSLog(@"Saved your info to database.");
+}
+
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    NSLog(@"did fail with error %@", error);
+    NSLog(@"%d", [CLLocationManager locationServicesEnabled]);
+    
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
