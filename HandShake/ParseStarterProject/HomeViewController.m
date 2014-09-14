@@ -37,15 +37,7 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     haveLocationNotLoggedIn = NO;
-    [super viewDidLoad];
-    [PFCloud callFunctionInBackground:@"hello"
-                       withParameters:@{}
-                                block:^(NSString *result, NSError *error) {
-                                    if (!error) {
-                                        NSLog(@"%@", result);
-                                        // result is @"Hello world!"
-                                    }
-                                }];
+    
     
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
@@ -70,6 +62,16 @@
     [self.myUserRow saveInBackground];
     NSLog(@"timeStamp %@", self.myUserRow[@"currentTimeStamp"]);
     NSLog(@"Saved your info to database.");
+    
+    [super viewDidLoad];
+    
+    [PFCloud callFunctionInBackground:@"usersNearbyNow"
+                       withParameters:@{@"request" : user}
+                                block:^(NSString *result, NSError *error) {
+                                    if (!error) {
+                                        NSLog(@"%@", result);
+                                    }
+                                }];
 }
 
 
