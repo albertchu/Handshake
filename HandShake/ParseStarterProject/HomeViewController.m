@@ -15,7 +15,7 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
+
     [self presentLogInViewController];
 }
 
@@ -65,13 +65,13 @@
     
     [super viewDidLoad];
     
-    [PFCloud callFunctionInBackground:@"usersNearbyNow"
-                       withParameters:@{@"request" : user}
-                                block:^(NSString *result, NSError *error) {
-                                    if (!error) {
-                                        NSLog(@"%@", result);
-                                    }
-                                }];
+//    [PFCloud callFunctionInBackground:@"usersNearbyNow"
+//                       withParameters:@{@"request" : user}
+//                                block:^(NSString *result, NSError *error) {
+//                                    if (!error) {
+//                                        NSLog(@"%@", result);
+//                                    }
+//                                }];
 }
 
 
