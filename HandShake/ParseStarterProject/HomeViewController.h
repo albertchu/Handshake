@@ -10,7 +10,9 @@
 #import "HomeViewController.h"
 #import <Parse/Parse.h>
 
-@interface HomeViewController : UIViewController <CLLocationManagerDelegate, PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate>
+@interface HomeViewController : UIViewController <CLLocationManagerDelegate, PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate> {
+    BOOL haveLocationNotLoggedIn;
+}
 -(void) enteredBackground;
 -(void) saveInfoToDB;
 @property (nonatomic,retain) CLLocationManager *locationManager;

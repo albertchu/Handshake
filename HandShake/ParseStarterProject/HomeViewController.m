@@ -8,7 +8,7 @@
 #import "HomeViewController.h"
 #import <Parse/Parse.h>
 
-@implementation HomeViewController
+@implementation HomeViewController 
 
 #pragma mark - UIViewController
 
@@ -36,6 +36,7 @@
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
+    haveLocationNotLoggedIn = NO;
     [super viewDidLoad];
     [PFCloud callFunctionInBackground:@"hello"
                        withParameters:@{}
@@ -79,8 +80,12 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    
-    [self saveInfoToDB];
+    if ([PFUser currentUser]) {
+        [self saveInfoToDB];
+    }
+    else {
+        haveLocationNotLoggedIn = YES;
+    }
     [self.locationManager stopUpdatingLocation];
     
 }
@@ -102,8 +107,11 @@
 
 - (void)userDidAuthenticate:(UIViewController *)authController
 {
+    if (haveLocationNotLoggedIn == YES) {
+        [self saveInfoToDB];
+    }
+    
     [self dismissViewControllerAnimated:YES completion:^{
-        
         // Update UI with logged in user
         
     }];
