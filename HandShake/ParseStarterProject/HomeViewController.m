@@ -7,6 +7,8 @@
 
 #import "HomeViewController.h"
 #import <Parse/Parse.h>
+#import "MyLogInViewController.h"
+#import "MySignUpViewController.h"
 
 @implementation HomeViewController 
 
@@ -23,10 +25,15 @@
 {
     if (![PFUser currentUser])
     {
-        PFLogInViewController *loginViewController = [PFLogInViewController new];
+        MyLogInViewController *loginViewController = [MyLogInViewController new];
         loginViewController.fields = PFLogInFieldsUsernameAndPassword | PFLogInFieldsLogInButton | PFLogInFieldsSignUpButton;
         loginViewController.delegate = self;
         loginViewController.signUpController.delegate = self;
+        
+        MySignUpViewController *signUpViewController = [[MySignUpViewController alloc] init];
+        signUpViewController.delegate = self;
+        signUpViewController.fields = PFSignUpFieldsDefault | PFSignUpFieldsAdditional;
+        loginViewController.signUpController = signUpViewController;
         
         [self presentViewController:loginViewController animated:YES completion:nil];
     }
